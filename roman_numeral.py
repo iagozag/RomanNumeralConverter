@@ -7,7 +7,7 @@ def is_okay(roman):
         count_char[letter] += 1
 
         if count_char.get(letter) >= 4:
-            print("'{}' cannot be repeated 4 times or more.".format(letter))
+            print("'{}' cannot be repeated 4 times or more! See the rules for more information.".format(letter))
             flag = False
             return flag
         elif letter not in 'IVXLCDM':
@@ -33,12 +33,19 @@ def try_again(reply):
 
 def roman2int(roman):
     roman_dict = {
+        'i': 1,
         'I': 1,
+        'v': 5,
         'V': 5,
+        'x': 10,
         'X': 10,
+        'l': 50,
         'L': 50,
+        'c': 100,
         'C': 100,
+        'd': 500,
         'D': 500,
+        'm': 1000,
         'M': 1000
     }
 
@@ -50,9 +57,9 @@ def roman2int(roman):
         i = 0
 
         for number in roman:
+            current_iter = roman[roman.index(number)]
+            current_number = roman.index(number)
             try:
-                current_iter = roman[roman.index(number)]
-
                 next_iter = roman[roman.index(number) + 1]
                 next_number = roman.index(number) + 1
             except IndexError:
@@ -65,7 +72,7 @@ def roman2int(roman):
 
                 i += 1
 
-            print(result)
+        print(result)
 
         return result
 
@@ -90,8 +97,7 @@ while decision:
         roman2int((input("\nType a roman number: ")))
 
         answer = (input("\nDo you want to try again? y = yes / n = no"))
-        decision = try_again(answer, decision)
-
+        decision = try_again(answer)
     elif answer_number == '2':
         print("""\n\t\t\t\t\t# +------+-----+-----+-----+-----+-----+-----+-----+
             \t\t# | Char |  I  |  V  |  X  |  L  |  C  |  D  |  M  |
@@ -107,15 +113,13 @@ while decision:
 
         answer = (input("\nDo you want to return to the beginning of the program? y = yes / n = no"))
         decision = try_again(answer)
-
     elif answer_number == '3':
         print("Try again anytime!")
         quit()
-
     else:
         answer_number = None
         print("Invalid token!")
 
         answer = (input("\nDo you want to try again? y = yes / n = no"))
-        decision = try_again(answer, decision)
+        decision = try_again(answer)
 quit()
